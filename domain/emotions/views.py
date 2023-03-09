@@ -66,11 +66,11 @@ def predict(model, vocab, text):
     tokenizer = get_tokenizer()
     tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 
-    data = [text, '0']
-    dataset_another = [data]
+    data = data_preprocess(text)
+    # dataset_another = [data]
 
     # TensorDataset(inputs, labels, attention masks 포함)으로 만들어주기
-    another_test = BERTDataset(dataset_another, 0, 1, tok, max_len, True, False)
+    another_test = BERTDataset(data, 0, 1, tok, max_len, True, False)
 
     # 배치, 데이터 로더 설정
     test_dataloader = torch.utils.data.DataLoader(another_test, batch_size=batch_size, num_workers=2)
@@ -118,6 +118,20 @@ def predict(model, vocab, text):
     n_logits = normalize(sm_logits)
     print(n_logits)
     return logits
+
+def data_preprocess(data):
+    raw = re.split('[\r\n\.\?\!]', data)
+    #raw = data.replace('\r\n', ' ').replace('.', ' ').replace('\?', ' ')
+    text = []
+
+    for val in raw:
+        if val == '':
+            continue
+        text.append([val, 0.0])
+
+
+    print(text)
+    return text
 
 
 def normalize(result):
