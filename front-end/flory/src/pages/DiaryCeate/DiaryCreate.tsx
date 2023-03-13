@@ -22,6 +22,7 @@ const DiaryCreate = () => {
   return (
     <SMain>
       <SSection>
+        {/* 전체 공개인 경우 height 60% 올리는 로직 추가하기 */}
         <DiaryCreateInput />
         <div className="input__wrapper">
           <button className="image__button">
@@ -46,6 +47,7 @@ const DiaryCreate = () => {
           </FormGroup>
         </div>
         {/* 많아졌을 때 문제있음. API 연결하고 수정해야 됨 */}
+        {/* 그룹 태그 */}
         <GroupTagWrapper />
         <div className="location__wrapper">
           <div>기록 위치</div>
@@ -53,20 +55,22 @@ const DiaryCreate = () => {
           <button>위치 변경</button>
         </div>
       </SSection>
-      <Button
-        contents="기록 완료"
-        addStyle={{
-          width: "90%",
-          margin: "1.2rem 0 1rem 0",
-          height: "8%",
-          background1: "rgb(46,33,98)",
-          background2:
-            "linear-gradient(90deg, rgba(132,120,185,1) 0%, rgba(46,33,98,1) 100%)",
-          borderRadius: "16px",
-          color: "#ffffff",
-          fontSize: "1rem",
-        }}
-      />
+      <div className="bottom__wrapper">
+        <Button
+          contents="기록 완료"
+          addStyle={{
+            width: "90%",
+            // margin: "2rem  0",
+            height: "25%",
+            background1: "rgb(46,33,98)",
+            background2:
+              "linear-gradient(90deg, rgba(132,120,185,1) 0%, rgba(46,33,98,1) 100%)",
+            borderRadius: "16px",
+            color: "#ffffff",
+            fontSize: "1rem",
+          }}
+        />
+      </div>
       <Navbar />
     </SMain>
   );

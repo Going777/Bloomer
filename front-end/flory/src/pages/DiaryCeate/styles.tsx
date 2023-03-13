@@ -5,16 +5,27 @@ export const SMain = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* 기록완료 버튼 wrapper */
+  .bottom__wrapper {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-2rem);
+  }
 `;
 
 export const SSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   text-align: center;
   margin-top: 1rem;
-  height: 75%;
+  height: 80%;
   width: 90%;
   background: #ffffff;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25), 0px 2px 8px rgba(0, 0, 0, 0.25);
@@ -72,9 +83,8 @@ export const SSection = styled.section`
 
   /* 위치 */
   .location__wrapper {
-    margin: auto;
-    margin-top: 0;
-    margin-bottom: 0.8rem;
+    margin: 0 auto;
+    margin-top: 0.8rem;
     width: 90%;
     & > div {
       text-align: left;

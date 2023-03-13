@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const STextarea = styled.textarea`
-  margin-top: 5%;
   height: 50%;
   width: 90%;
   background: #f2f2fc;
