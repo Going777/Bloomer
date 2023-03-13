@@ -52,7 +52,7 @@ export const SMain = styled.main`
 
   .flower__wrapper {
     position: absolute;
-    bottom: -1rem;
+    bottom: -1.2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
