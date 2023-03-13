@@ -3,6 +3,7 @@ import { SMain } from "./styles";
 import { TiChevronRightOutline, TiChevronLeftOutline } from "react-icons/ti";
 import testFlower from "../../assets/imgs/test_flower.png";
 import Navbar from "../../components/common/Navbar/Navbar";
+import Button from "../../components/common/Button/Button";
 
 const CARDS = 10;
 const MAX_VISIBILITY = 3;
@@ -60,16 +61,35 @@ const DiarySelect = () => {
         <p>꽃 피우고 싶은 감정을 선택해주세요.</p>
       </div>
       {/* 선택된 감정 */}
-      <div className="emotion">기쁨</div>
       <div className="wrapper">
+        <div className="emotion">기쁨</div>
+        <div className="flower__wrapper">
+          <p className="name__title">크로커스</p>
+          <p className="flower__language">믿음의 기쁨</p>
+        </div>
         <Carousel>
           {[...new Array(CARDS)].map((_, i) => (
             // <Card title={"Card " + (i + 1)}>
-
             <img src={testFlower} alt="" />
             // </Card>
           ))}
         </Carousel>
+      </div>
+      <div className="bottom__wrapper">
+        <Button
+          contents="감정 선택"
+          addStyle={{
+            width: "20%",
+            // margin: "2rem  0",
+            // height: "25%",
+            background1: "rgb(46,33,98)",
+            background2:
+              "linear-gradient(90deg, rgba(132,120,185,1) 0%, rgba(46,33,98,1) 100%)",
+            borderRadius: "16px",
+            color: "#ffffff",
+            fontSize: "1rem",
+          }}
+        />
       </div>
       <Navbar />
     </SMain>

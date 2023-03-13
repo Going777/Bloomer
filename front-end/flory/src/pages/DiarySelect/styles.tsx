@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const SMain = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   height: 100%;
   background: rgb(254, 219, 217);
@@ -9,7 +12,6 @@ export const SMain = styled.main`
     rgba(254, 219, 217, 1) 0%,
     rgba(186, 205, 222, 1) 100%
   );
-  padding-top: 10%;
   overflow: hidden;
 
   .info__wrapper {
@@ -18,17 +20,29 @@ export const SMain = styled.main`
     }
     width: 90%;
     text-align: center;
-    margin: auto;
+    margin: 0 auto;
     background: #ffffff;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25), 0px 2px 8px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     padding: 1rem 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .bottom__wrapper {
+    width: 100%;
+    /* height: 25%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .emotion {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 90%;
     text-align: center;
-    margin: 2rem auto;
     font-size: 1.6rem;
     background: linear-gradient(#bd00ff 0%, #ff00d6 100%);
     background-clip: text;
@@ -36,11 +50,34 @@ export const SMain = styled.main`
     color: transparent;
   }
 
+  .flower__wrapper {
+    position: absolute;
+    bottom: -1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & > p {
+      margin: 0;
+      color: var(--color-white);
+    }
+
+    .name__title {
+      font-size: 1.6rem;
+    }
+
+    .flower__language {
+      font-size: 1.2rem;
+    }
+  }
+
   /* Carousel */
   .wrapper {
+    position: relative;
     display: flex;
     justify-content: center;
-    height: 16rem;
+    height: 23rem;
+    margin-bottom: 2.5rem;
   }
 
   img {
