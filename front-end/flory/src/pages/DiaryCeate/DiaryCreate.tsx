@@ -1,0 +1,75 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
+import Navbar from "../../components/common/Navbar/Navbar";
+import DiaryCreateInput from "../../components/Diary/DiaryCreateInput/DiaryCreateInput";
+import { SMain, SSection } from "./styles";
+
+// mui
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import GroupTagWrapper from "../../components/Diary/GroupTagWrapper/GroupTagWrapper";
+import Button from "../../components/common/Button/Button";
+
+const DiaryCreate = () => {
+  const fileInput = React.useRef<HTMLInputElement>(null);
+
+  const handleAddImg = (e: React.MouseEvent<SVGSVGElement>) => {
+    fileInput.current!.click();
+  };
+
+  return (
+    <SMain>
+      <SSection>
+        <DiaryCreateInput />
+        <div className="input__wrapper">
+          <button className="image__button">
+            <FontAwesomeIcon
+              className="image-input__icon"
+              icon={faImage}
+              onClick={handleAddImg}
+            />
+          </button>
+          <input
+            className="file__input"
+            type="file"
+            ref={fileInput}
+            // 가능한 업로드 파일 형식 제한
+            accept="image/jpg, image/jpeg, image/png"
+          />
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch defaultChecked />}
+              label="전체 공개"
+            />
+          </FormGroup>
+        </div>
+        {/* 많아졌을 때 문제있음. API 연결하고 수정해야 됨 */}
+        <GroupTagWrapper />
+        <div className="location__wrapper">
+          <div>기록 위치</div>
+          <div className="location">서울 강남구 테헤란로 212</div>
+          <button>위치 변경</button>
+        </div>
+      </SSection>
+      <Button
+        contents="기록 완료"
+        addStyle={{
+          width: "90%",
+          margin: "1.2rem 0 1rem 0",
+          height: "8%",
+          background1: "rgb(46,33,98)",
+          background2:
+            "linear-gradient(90deg, rgba(132,120,185,1) 0%, rgba(46,33,98,1) 100%)",
+          borderRadius: "16px",
+          color: "#ffffff",
+          fontSize: "1rem",
+        }}
+      />
+      <Navbar />
+    </SMain>
+  );
+};
+
+export default DiaryCreate;

@@ -33,8 +33,8 @@ export const SNavbar = styled.menu`
     justify-content: center;
     align-items: center;
 
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     border: 7px solid #2e2162;
   }
@@ -45,8 +45,8 @@ export const SNavbar = styled.menu`
 
   .nav__item {
     color: var(--color-white);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1rem;
+    height: 1rem;
     padding: 1rem 0;
   }
 
