@@ -23,7 +23,7 @@ function App() {
       <Suspense>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Garden />} />
+            <Route path="/" element={<Main />} />
             {/* 로그인 되어있으면 메인페이지로 보내기 */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
@@ -33,7 +33,7 @@ function App() {
             <Route path="/diary/select" element={<DiarySelect />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/diary" element={<Diary />} />
-            {/* <Route path="/home" element={<Garden />} /> */}
+            <Route path="/home" element={<Garden />} />
           </Routes>
         </BrowserRouter>
       </Suspense>
