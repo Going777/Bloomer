@@ -1,7 +1,10 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import "./App.css";
+import Garden from "./pages/Garden/Garden";
 
 // 코드 스플리팅 (Code Splitting)
 const Main = React.lazy(() => import("./pages/Main/Main"));
@@ -20,7 +23,7 @@ function App() {
       <Suspense>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Garden />} />
             {/* 로그인 되어있으면 메인페이지로 보내기 */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
@@ -30,6 +33,7 @@ function App() {
             <Route path="/diary/select" element={<DiarySelect />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/diary" element={<Diary />} />
+            {/* <Route path="/home" element={<Garden />} /> */}
           </Routes>
         </BrowserRouter>
       </Suspense>
