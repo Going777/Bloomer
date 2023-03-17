@@ -8,6 +8,8 @@ import { SMain } from "./styles";
 import F03 from "../../Flowers/F03";
 import F10 from "../../Flowers/F10";
 import NewF10 from "../../Flowers/Newf10";
+import F15 from "../../Flowers/F15";
+import NF10 from "../../Flowers/Nf10";
 
 const Scene = () => {
   return (
@@ -17,7 +19,9 @@ const Scene = () => {
         {/* <Tulip2 /> */}
         {/* <F03 /> */}
         {/* <F10 /> */}
-        <NewF10 />
+        {/* <NewF10 /> */}
+        {/* <NF10 /> */}
+        <F15 />
       </Suspense>
     </>
   );

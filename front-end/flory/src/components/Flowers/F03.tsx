@@ -94,6 +94,7 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
           geometry={nodes.f03_2.geometry}
           material={materials.stem}
         />
+        <axesHelper args={[5]} />
       </group>
     </group>
   );
