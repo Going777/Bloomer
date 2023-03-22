@@ -51,6 +51,7 @@ tok = nlp.data.BERTSPTokenizer(tokenizer, vocab, lower=False)
 def nearestUser(request, user_id):
 
     if request.method == 'GET':
+        pass
         
         #member table에서 전체 유저 정보 가져오기
 
