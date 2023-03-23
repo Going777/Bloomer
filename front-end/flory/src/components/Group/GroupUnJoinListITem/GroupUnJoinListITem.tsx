@@ -1,44 +1,42 @@
-import React, { useRef, useState } from "react";
-import { AiTwotoneCalendar } from "react-icons/ai";
-import { FiCalendar, FiUser } from "react-icons/fi";
-import { FaLock } from "react-icons/fa";
-import { RiFilePaper2Line } from "react-icons/ri";
-import { SForm, SMain } from "./styles";
-import CreateInput from "../../common/CreateInput/CreateInput";
+import React, { useRef, useState } from "react"
+import { AiTwotoneCalendar } from "react-icons/ai"
+import { FiCalendar, FiUser } from "react-icons/fi"
+import { FaLock } from "react-icons/fa"
+import { RiFilePaper2Line } from "react-icons/ri"
+import { SForm, SMain } from "./styles"
+import CreateInput from "../../common/CreateInput/CreateInput"
 
 const convertDateFormat = (date: string) => {
-  const target = new Date(date);
-  const year = target.getFullYear();
-  const month = target.getMonth() + 1;
-  const day = target.getDate();
-  return year + "." + month + "." + day;
-};
+  const target = new Date(date)
+  const year = target.getFullYear()
+  const month = target.getMonth() + 1
+  const day = target.getDate()
+  return year + "." + month + "." + day
+}
 
 const GroupUnJoinListITem = ({ group }: any) => {
-  const [isDetail, setIsDetail] = useState(false);
+  const [isDetail, setIsDetail] = useState(false)
   // const [content, setContent] = useState("");
-  const contentInput = useRef<HTMLInputElement>(null);
+  const contentInput = useRef<HTMLInputElement>(null)
 
   const handleClickDetail = () => {
-    setIsDetail(!isDetail);
-  };
+    setIsDetail(!isDetail)
+  }
   const handleClickFormArea = (e: any) => {
-    e.stopPropagation();
-  };
+    e.stopPropagation()
+  }
   const handleSubmitForm = (e: any) => {
-    e.preventDefault();
-    console.log(contentInput.current?.value);
+    e.preventDefault()
+    console.log(contentInput.current?.value)
     // 가입 api 쏘기
-  };
+  }
 
   return (
     <SMain onClick={handleClickDetail}>
       <div className="title__wrapper">
         <div className="group-name">{group.name}</div>
         <div className="private__section">
-          {group.status === "waiting" && (
-            <div id="accept-tag">승인 대기 중</div>
-          )}
+          {group.status === 0 && <div id="accept-tag">승인 대기 중</div>}
           {group.isPrivate && (
             <div>
               <FaLock color="#656565" />
@@ -52,14 +50,14 @@ const GroupUnJoinListITem = ({ group }: any) => {
             <FiCalendar />
           </div>
           <div className="group-content">
-            {convertDateFormat(group.createdTime)}
+            {convertDateFormat(group.createdDate)}
           </div>
         </div>
         <div className="flex__oneline">
           <div>
             <FiUser />
           </div>
-          <div className="group-content">{group.participantCnt} 명</div>
+          <div className="group-content">{group.userTeamList.length} 명</div>
         </div>
         <div className="flex__oneline">
           <div>
@@ -87,7 +85,7 @@ const GroupUnJoinListITem = ({ group }: any) => {
         )}
       </div>
     </SMain>
-  );
-};
+  )
+}
 
-export default GroupUnJoinListITem;
+export default GroupUnJoinListITem
