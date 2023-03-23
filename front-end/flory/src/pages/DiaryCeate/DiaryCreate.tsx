@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faXmark } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../../components/common/Navbar/Navbar";
-import DiaryCreateInput from "../../components/Diary/DiaryCreateInput/DiaryCreateInput";
+import CreateInput from "../../components/common/CreateInput/CreateInput";
 import { SMain, SSection } from "./styles";
 import useGeolocation from "react-hook-geolocation";
 
@@ -11,6 +11,8 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Radio from "@mui/material/Radio";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 import GroupTagWrapper from "../../components/Diary/GroupTagWrapper/GroupTagWrapper";
 import Button from "../../components/common/Button/Button";
@@ -19,7 +21,7 @@ import DiaryLocationModal from "../../components/Diary/DiaryLocationModal/DiaryL
 
 import { PlaceType } from "../../models/map/placeType";
 
-import { useAppDispatch } from "../../redux/store.hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/store.hooks";
 import { createDiaryAction } from "../../redux/modules/diary";
 import { useNavigate } from "react-router-dom";
 
@@ -30,6 +32,10 @@ declare global {
 }
 
 const DiaryCreate = () => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
   const [place, setPlace] = useState<PlaceType>({
     placeName: "멀티캠퍼스 역삼",
@@ -131,34 +137,53 @@ const DiaryCreate = () => {
   // 다이어리 생성
   const dispatch = useAppDispatch();
   const onCreateDiary = () => {
-    // const diaryData = {
-    //   content: contentInput.current?.value,
-    //   imgSrc: "",
-    //   lat: place.lat,
-    //   lng: place.lng,
-    //   address: place.placeName ? place.placeName : place.address,
-    //   publicStatus: "전체공개",
-    //   // 일단 채워놓는 데이터
-    //   fid: 1,
-    //   x: 10,
-    //   y: 10,
-    //   z: 10,
-    //   gid: 1,
-    //   mid: 1,
-    // };
+    const diaryData = {
+      content: contentInput.current?.value,
+      imgSrc: selectedImg.image_file,
+      lat: place.lat,
+      lng: place.lng,
+      publicStatus: "전체공개",
+      groupList: null,
+      fid: 1,
+      gid: 1,
+      mid: 1,
+      address: place.placeName ? place.placeName : place.address,
+    };
+
+    console.log(diaryData);
+    if (!diaryData.content?.trim()) {
+      handleOpen();
+    } else {
+      navigate("/diary/select", {
+        state: {
+          diaryData,
+        },
+      });
+    }
+
     // dispatch(createDiaryAction(diaryData));
-    navigate("/diary/select");
+    // navigate("/diary/select");
+  };
+
+  const style: any = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "#ffffff",
+    boxShadow: 24,
+    // p: 3,
   };
 
   return (
     <SMain>
       <SSection>
         {/* 전체 공개인 경우 height 60% 올리는 로직 추가하기! */}
-        <DiaryCreateInput contentInput={contentInput} />
-        <h1>1</h1>
-        <h1>2</h1>
-        <h1>3</h1>
-        <h1>4</h1>
+        <CreateInput
+          contentInput={contentInput}
+          placeholder="어떤 일이 있었나요?"
+        />
         <div className="input__wrapper">
           <button className="image__button">
             <FontAwesomeIcon
@@ -227,9 +252,8 @@ const DiaryCreate = () => {
           <div>기록 위치</div>
           <div className="location">
             {place.placeName ? place.placeName : place.address}
+            <DiaryLocationModal place={place} setPlace={setPlace} />
           </div>
-
-          <DiaryLocationModal place={place} setPlace={setPlace} />
         </div>
       </SSection>
       <div className="bottom__wrapper">
@@ -250,6 +274,31 @@ const DiaryCreate = () => {
         />
       </div>
       <Navbar />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="modal__wrapper" style={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            일기를 기록해주세요.
+          </Typography>
+          <Button
+            addStyle={{
+              // margin: "auto",
+              fontSize: "1rem",
+              width: "40%",
+              height: "2.5rem",
+              color: "#ffffff",
+              background1: "#ff003e",
+              borderRadius: "24px",
+            }}
+            contents="확인"
+            onClick={handleClose}
+          />
+        </div>
+      </Modal>
     </SMain>
   );
 };

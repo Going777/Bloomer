@@ -11,11 +11,15 @@ import pMinDelay from "p-min-delay";
 import { localData } from "../src/redux/modules/user/token";
 import { useAppSelector, useAppDispatch } from "./redux/store.hooks";
 import { getUserDataToTokenAction } from "./redux/modules/user";
+import GroupList from "./pages/GroupList/GroupList";
 
 // 코드 스플리팅 (Code Splitting)
 const Main = React.lazy(() => import("./pages/Main/Main"));
 const Login = React.lazy(() => import("./pages/Login/Login"));
 const Signup = React.lazy(() => import("./pages/Signup/Signup"));
+const SignupMusicSelect = React.lazy(
+  () => import("./pages/SignupMusicSelect/SignupMusicSelect")
+);
 const Map = React.lazy(() => import("./pages/Map/Map"));
 const MyPage = React.lazy(() => import("./pages/MyPage/MyPage"));
 const Diary = React.lazy(() => import("./pages/Diary/Diary"));
@@ -28,6 +32,7 @@ const Setting = React.lazy(() => import("./pages/Setting/Setting"));
 const DiaryMusicSlect = React.lazy(
   () => import("./pages/DiaryMusicSelect/DiaryMusicSelect")
 );
+const GuestBook = React.lazy(() => import("./pages/GuestBook/GuestBook"));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -51,6 +56,7 @@ function App() {
             {/* 로그인 되어있으면 메인페이지로 보내기 */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/signup/music" element={<SignupMusicSelect />} />
             <Route path="/map" element={<Map />} />
             <Route path="/diary/create" element={<DiaryCreate />} />
             <Route path="/diary/select" element={<DiarySelect />} />
@@ -61,7 +67,9 @@ function App() {
             <Route path="/garden" element={<Garden />} />
             <Route path="/garden/edit" element={<GardenEdit />} />
             <Route path="/garden/list" element={<GardenList />} />
+            <Route path="/guestbook" element={<GuestBook />} />
             <Route path="/setting" element={<Setting />} />
+            <Route path="/group/list" element={<GroupList />} />
             {/* 404 Not Found 추가해야 됨 */}
           </Routes>
         </BrowserRouter>
