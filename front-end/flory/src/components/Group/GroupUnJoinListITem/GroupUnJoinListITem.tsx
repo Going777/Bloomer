@@ -29,6 +29,10 @@ const GroupUnJoinListITem = ({ group }: any) => {
     e.preventDefault()
     console.log(contentInput.current?.value)
     // 가입 api 쏘기
+
+    if (contentInput.current) {
+      contentInput.current.value = ""
+    }
   }
 
   return (
@@ -37,7 +41,7 @@ const GroupUnJoinListITem = ({ group }: any) => {
         <div className="group-name">{group.name}</div>
         <div className="private__section">
           {group.status === 0 && <div id="accept-tag">승인 대기 중</div>}
-          {group.isPrivate && (
+          {!group.open && (
             <div>
               <FaLock color="#656565" />
             </div>
@@ -69,13 +73,15 @@ const GroupUnJoinListITem = ({ group }: any) => {
             <div className="group-content">{group.info}</div>
           )}
         </div>
-        {group.status !== "waiting" && (
+        {group.status !== 0 && (
           <SForm onClick={handleClickFormArea} isDetail={isDetail}>
-            <CreateInput
-              contentInput={contentInput}
-              placeholder="승인 요청을 위한 가입 메시지를 작성해 주세요"
-              page="group"
-            />
+            {!group.open && (
+              <CreateInput
+                contentInput={contentInput}
+                placeholder="승인 요청을 위한 가입 메시지를 작성해 주세요"
+                page="group"
+              />
+            )}
             <div className="btn__wrapper">
               <button className="btn" onClick={handleSubmitForm}>
                 참여 신청하기
