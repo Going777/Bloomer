@@ -3,6 +3,9 @@ package com.exmaple.flory.controller;
 import com.exmaple.flory.dto.diary.DiaryDayDto;
 import com.exmaple.flory.dto.diary.DiaryDto;
 import com.exmaple.flory.dto.diary.DiaryRequestDto;
+import com.exmaple.flory.dto.diary.UpdateDiariesDto;
+import com.exmaple.flory.dto.emotion.FlowerEmotionDataDto;
+import com.exmaple.flory.exception.CustomException;
 import com.exmaple.flory.exception.error.ErrorCode;
 import com.exmaple.flory.response.ErrorResponse;
 import com.exmaple.flory.response.SuccessResponse;
@@ -31,6 +34,9 @@ public class DiaryController {
 
             log.info("Diary 생성: {}",diaryDto);
             return new ResponseEntity<>(new SuccessResponse(result), HttpStatus.OK);
+        }catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -44,6 +50,9 @@ public class DiaryController {
 
             log.info("Diary 가져오기: {}",diaryDto);
             return new ResponseEntity<>(new SuccessResponse(diaryDto),HttpStatus.OK);
+        }catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,6 +67,9 @@ public class DiaryController {
             log.info("diary 삭제: {}",diaryId);
             if(result==1) return new ResponseEntity<>(new SuccessResponse("삭제가 완료되었습니다."),HttpStatus.OK);
             else throw new Exception();
+        }catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -69,6 +81,9 @@ public class DiaryController {
         try{
             DiaryDto result = diaryService.updateDiary(diaryDto);
             return new ResponseEntity<>(new SuccessResponse(result),HttpStatus.OK);
+        }catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,6 +95,9 @@ public class DiaryController {
         try{
             List<DiaryDto> result = diaryService.getDiaryListByGarden(gardenId, requestId);
             return new ResponseEntity<>(new SuccessResponse(result),HttpStatus.OK);
+        }catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -91,6 +109,9 @@ public class DiaryController {
         try{
             List<DiaryDto> result = diaryService.getDiaryListByUser(memberId, requestId);
             return new ResponseEntity<>(new SuccessResponse(result),HttpStatus.OK);
+        }catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -102,7 +123,10 @@ public class DiaryController {
         try {
             List<DiaryDto> result = diaryService.getDiaryListInMap(mapInfo);
             return new ResponseEntity<>(new SuccessResponse(result),HttpStatus.OK);
-        } catch (Exception e){
+        } catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
+        }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -113,6 +137,9 @@ public class DiaryController {
         try{
             DiaryDto diaryDto = diaryService.getDiaryByLocation(info);
             return new ResponseEntity<>(new SuccessResponse(diaryDto),HttpStatus.OK);
+        }catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -124,7 +151,32 @@ public class DiaryController {
         try{
             List<DiaryDayDto> result = diaryService.getDiaryInMonth(id,year,month);
             return new ResponseEntity<>(new SuccessResponse(result),HttpStatus.OK);
-        } catch (Exception e) {
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/location")
+    public ResponseEntity<?> updateDiaryLocation(@RequestBody UpdateDiariesDto updateDiariesDto){
+        try{
+            List<DiaryDto> result = diaryService.updateDiaryLocation(updateDiariesDto.getUpdateDiaries());
+            return new ResponseEntity<>(new SuccessResponse(result),HttpStatus.OK);
+        } catch (CustomException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getHttpStatus(),e.getMessage()), e.getErrorCode().getHttpStatus());
+        }catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/emotion")
+    public ResponseEntity<?> getEmotionData(@RequestBody Map<String,String> data){
+        try{
+            FlowerEmotionDataDto result = diaryService.getFlowerEmotionData(data);
+            return new ResponseEntity<>(new SuccessResponse(result),HttpStatus.OK);
+        }catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR),HttpStatus.INTERNAL_SERVER_ERROR);
         }
