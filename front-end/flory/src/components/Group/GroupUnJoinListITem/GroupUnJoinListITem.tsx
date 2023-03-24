@@ -1,39 +1,50 @@
-import React, { useRef, useState } from "react"
-import { AiTwotoneCalendar } from "react-icons/ai"
-import { FiCalendar, FiUser } from "react-icons/fi"
-import { FaLock } from "react-icons/fa"
-import { RiFilePaper2Line } from "react-icons/ri"
-import { SForm, SMain } from "./styles"
-import CreateInput from "../../common/CreateInput/CreateInput"
+import React, { useRef, useState } from "react";
+import { AiTwotoneCalendar } from "react-icons/ai";
+import { FiCalendar, FiUser } from "react-icons/fi";
+import { FaLock } from "react-icons/fa";
+import { RiFilePaper2Line } from "react-icons/ri";
+import { SForm, SMain } from "./styles";
+import CreateInput from "../../common/CreateInput/CreateInput";
+import { useAppDispatch, useAppSelector } from "../../../redux/store.hooks";
+import { requestJoinGroup } from "../../../redux/modules/group";
+import { GroupJoinRequestType } from "../../../models/Group/groupJoinRequestType";
 
 const convertDateFormat = (date: string) => {
-  const target = new Date(date)
-  const year = target.getFullYear()
-  const month = target.getMonth() + 1
-  const day = target.getDate()
-  return year + "." + month + "." + day
-}
+  const target = new Date(date);
+  const year = target.getFullYear();
+  const month = target.getMonth() + 1;
+  const day = target.getDate();
+  return year + "." + month + "." + day;
+};
 
 const GroupUnJoinListITem = ({ group }: any) => {
-  const [isDetail, setIsDetail] = useState(false)
+  const userInfo = useAppSelector((state) => state.user.userData);
+  const [isDetail, setIsDetail] = useState(false);
   // const [content, setContent] = useState("");
-  const contentInput = useRef<HTMLInputElement>(null)
+  const contentInput = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
 
   const handleClickDetail = () => {
-    setIsDetail(!isDetail)
-  }
+    setIsDetail(!isDetail);
+  };
   const handleClickFormArea = (e: any) => {
-    e.stopPropagation()
-  }
+    e.stopPropagation();
+  };
   const handleSubmitForm = (e: any) => {
-    e.preventDefault()
-    console.log(contentInput.current?.value)
+    e.preventDefault();
+    const groupJoinData: GroupJoinRequestType = {
+      teamId: group.teamId,
+      userId: userInfo.userId,
+      message: contentInput.current?.value,
+    };
+
     // 가입 api 쏘기
+    dispatch(requestJoinGroup(groupJoinData));
 
     if (contentInput.current) {
-      contentInput.current.value = ""
+      contentInput.current.value = "";
     }
-  }
+  };
 
   return (
     <SMain onClick={handleClickDetail}>
@@ -91,7 +102,7 @@ const GroupUnJoinListITem = ({ group }: any) => {
         )}
       </div>
     </SMain>
-  )
-}
+  );
+};
 
-export default GroupUnJoinListITem
+export default GroupUnJoinListITem;
