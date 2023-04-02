@@ -4,6 +4,7 @@ import com.exmaple.flory.dto.member.MemberResponseDto;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -13,7 +14,7 @@ import java.util.Date;
 @ToString
 @Builder
 @Slf4j
-public class CommentResponseDto {
+public class CommentResponseDto implements Serializable {
 
     private Long id;
 

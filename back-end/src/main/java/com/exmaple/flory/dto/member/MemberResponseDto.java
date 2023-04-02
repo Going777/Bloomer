@@ -6,11 +6,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberResponseDto {
+public class MemberResponseDto implements Serializable {
     private Long userId;
     private String nickname;
     private String img;

@@ -3,6 +3,8 @@ package com.exmaple.flory.dto.flower;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -10,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Builder
 @Slf4j
-public class FlowerEmotionDto {
+public class FlowerEmotionDto implements Serializable {
     private Long fid;
 
     private Long eid;

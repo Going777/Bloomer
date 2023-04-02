@@ -7,7 +7,9 @@ import com.exmaple.flory.dto.team.TeamDto;
 import com.exmaple.flory.entity.Diary;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +20,8 @@ import java.util.List;
 @ToString
 @Builder
 @Slf4j
-public class DiaryDto {
+@RedisHash("post")
+public class DiaryDto implements Serializable {
     private Long id;
 
     private String content;

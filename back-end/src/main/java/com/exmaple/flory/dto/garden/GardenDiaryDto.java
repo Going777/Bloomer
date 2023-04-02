@@ -3,6 +3,7 @@ package com.exmaple.flory.dto.garden;
 import com.exmaple.flory.dto.member.MemberResponseDto;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 @Builder
-public class GardenDiaryDto {
+public class GardenDiaryDto implements Serializable {
     private Long id;
 
     private LocalDateTime deadLine;

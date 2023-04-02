@@ -1,5 +1,6 @@
 package com.exmaple.flory.service;
 
+import com.exmaple.flory.config.CacheKey;
 import com.exmaple.flory.dto.comment.CommentDto;
 import com.exmaple.flory.dto.comment.CommentResponseDto;
 import com.exmaple.flory.dto.diary.DiaryDayDto;
@@ -17,6 +18,7 @@ import com.exmaple.flory.exception.error.ErrorCode;
 import com.exmaple.flory.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -333,6 +335,7 @@ public class DiaryService {
         return null;
     }
 
+    @Cacheable(value = CacheKey.POST, key = "#memberId + '-' + #year + '-' + #month")
     public List<DiaryDayDto> getDiaryInMonth(Long memberId, String year, String month) throws Exception{
         List<DiaryDayDto> diaryDayDtoList = new ArrayList<>();
 
