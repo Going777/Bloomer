@@ -86,7 +86,7 @@ const FlowersWrapper = ({
   }, []);
 
   useEffect(() => {
-    setCurrentDiary(diary.diaryData);
+    setCurrentDiary(diary.diaryOtherData);
   }, [diary]);
 
   useEffect(() => {

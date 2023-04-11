@@ -8,7 +8,10 @@ import Navbar from "../../components/common/Navbar/Navbar";
 import { useLocation, useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import { useAppDispatch, useAppSelector } from "../../redux/store.hooks";
-import { getDiaryListAction } from "../../redux/modules/diary";
+import {
+  getDiaryListAction,
+  getOtherDiaryListAction,
+} from "../../redux/modules/diary";
 import Beach_map from "../../components/Garden/Beach/Beach_map";
 import Camp_map from "../../components/Garden/Camp/Camp_map";
 import Park_map from "../../components/Garden/Park/Park_map";
@@ -139,8 +142,10 @@ const GardenOther = () => {
       gardenId,
       requestId,
     };
+    console.log(inputData, 3333);
+
     if (gardenId) {
-      dispatch(getDiaryListAction(inputData));
+      dispatch(getOtherDiaryListAction(inputData));
       setIsExist(true);
     }
   }, [gardenId, dispatch]);

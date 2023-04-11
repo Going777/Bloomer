@@ -148,6 +148,35 @@ export const getDiaryListAction = createAsyncThunk(
   }
 );
 
+// 남의 정원의 일기 목록 조회
+export const getOtherDiaryListAction = createAsyncThunk(
+  "GET_OTHER_DIARYLIST",
+  async (inputData: any, { dispatch, rejectWithValue }) => {
+    try {
+      const accessToken = localData.getAccessToken();
+      const axios = axiosInitializer();
+      const { data } = await axios.get(
+        `/api/diary/list/${inputData.gardenId}/${inputData.requestId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      const latestMusicTitle =
+        data.response[data.response.length - 1].musicTitle;
+
+      // dispatch(setFirstMusic(latestMusicTitle));
+      dispatch(gardenActions.setGardenMusic(latestMusicTitle));
+      console.log(data, 23232323);
+
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
 // 전체 공개 일기 목록 가져오기
 export const getAllDiary = createAsyncThunk(
   "GET_ALL_DIARY",

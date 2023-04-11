@@ -11,10 +11,12 @@ import {
   getDiaryWithGroup,
   getStatisticsMonth,
   getStatisticsLastWeek,
+  getOtherDiaryListAction,
 } from "./diary-action";
 
 const initialState: DiaryStateType = {
   diaryData: [],
+  diaryOtherData: [],
   create: { loading: false, data: null, error: null },
   positionUpdate: { loading: false, data: null, error: null },
   allDiaryList: [],
@@ -106,6 +108,12 @@ const diarySlice = createSlice({
       })
       .addCase(getDiaryListAction.rejected, (state) => {
         state.diaryData = [];
+      })
+      .addCase(getOtherDiaryListAction.fulfilled, (state, { payload }) => {
+        state.diaryOtherData = payload.response;
+      })
+      .addCase(getOtherDiaryListAction.rejected, (state) => {
+        state.diaryOtherData = [];
       })
       .addCase(getAllDiary.fulfilled, (state, { payload }) => {
         state.allDiaryList = payload.response;
